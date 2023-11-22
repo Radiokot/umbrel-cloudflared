@@ -1,4 +1,8 @@
 <script>
+    import { onMount } from "svelte";
+
+    import TunnelSettings from "../../model/TunnelSettings";
+
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
 
     let tokenInput = "";
@@ -39,6 +43,29 @@
             return null;
         }
     }
+
+    /**
+     * @returns {Promise<TunnelSettings>}
+     */
+    async function getTunnelSettings() {
+        let response = await fetch("/api/settings");
+        if (!response.ok) {
+            console.error("getTunnelSettings(): request_failed:", {
+                status: response.status,
+            });
+
+            throw new Error("Tunnel settings loading failed");
+        } else {
+            return TunnelSettings.from(await response.json());
+        }
+    }
+
+    async function loadTunnelSettings() {
+        let tunnelSettings = await getTunnelSettings();
+        if (tunnelSettings.token != null) {
+            tokenInput = tunnelSettings.token;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -46,7 +73,15 @@
 </svelte:head>
 
 <h1>Settings</h1>
-<label for="tokenInput">Tunnel token or connection string</label>
-<input id="tokenInput" bind:value={tokenInput} />
-<br />
-<button disabled={!isSaveEnabled} on:click={onSaveClicked}>Save & Restart</button>
+{#await loadTunnelSettings()}
+    <p>Loading...</p>
+{:then}
+    <label for="tokenInput">Connector token</label>
+    <input id="tokenInput" bind:value={tokenInput} />
+    <br />
+    <button disabled={!isSaveEnabled} on:click={onSaveClicked}>
+        Save & Restart
+    </button>
+{:catch}
+    <b>Failed to load</b>
+{/await}

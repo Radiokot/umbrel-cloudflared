@@ -35,7 +35,7 @@
         {:else}
             {tunnelStatus.status}
         {/if}
-    {:catch error}
+    {:catch}
         <b>Failed to load</b>
     {/await}
 </p>

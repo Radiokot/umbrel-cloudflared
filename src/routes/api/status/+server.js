@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import TunnelStatus from '../../../model/TunnelStatus';
+
 import {
     CLOUDFLARED_HOSTNAME,
     CLOUDFLARED_METRICS_PORT
@@ -12,6 +13,7 @@ export async function GET() {
         return json(new TunnelStatus(cloudflaredHealth))
     } catch (err) {
         console.warn('status.GET: server_unreachable:', err)
+
         return json(new TunnelStatus('UNREACHABLE'))
     }
 }
@@ -25,6 +27,10 @@ async function getCloudflaredHealth() {
     if (response.ok) {
         return response.text();
     } else {
-        throw new Error('status.getCloudflaredHealth: request_failed: ' + response.status)
+        console.error('status.getCloudflaredHealth: request_failed:', {
+            status: response.status
+        })
+        
+        throw new Error('Health request failed')
     }
 }
