@@ -6,11 +6,17 @@
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
 
     let tokenInput = "";
+    let isSavingSettings = false;
     $: parsedToken = parseToken(tokenInput);
-    $: isSaveEnabled = parsedToken != null;
+    $: isSaveEnabled = parsedToken != null && !isSavingSettings;
 
-    function onSaveClicked() {
-        // TODO
+    async function onSaveClicked() {
+        isSavingSettings = true;
+        try {
+            await saveTunnelSettings();
+        } finally {
+            isSavingSettings = false;
+        }
     }
 
     /**
@@ -62,8 +68,35 @@
 
     async function loadTunnelSettings() {
         let tunnelSettings = await getTunnelSettings();
+        onTunnelSettingsLoaded(tunnelSettings);
+    }
+
+    /**
+     * @param {TunnelSettings} tunnelSettings
+     */
+    function onTunnelSettingsLoaded(tunnelSettings) {
         if (tunnelSettings.token != null) {
             tokenInput = tunnelSettings.token;
+        }
+    }
+
+    async function saveTunnelSettings() {
+        let tunnelSettings = new TunnelSettings(parsedToken);
+        let response = await fetch("/api/settings", {
+            method: "POST",
+            body: JSON.stringify(tunnelSettings),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            console.error("saveTunnelSettings(): request_failed:", {
+                status: response.status,
+                test: response.text,
+            });
+        } else {
+            let updatedSettings = TunnelSettings.from(await response.json());
+            onTunnelSettingsLoaded(updatedSettings);
         }
     }
 </script>
@@ -76,8 +109,16 @@
 {#await loadTunnelSettings()}
     <p>Loading...</p>
 {:then}
-    <label for="tokenInput">Connector token</label>
-    <input id="tokenInput" bind:value={tokenInput} />
+    <p><label for="tokenInput">Connector token</label></p>
+    <textarea
+        id="tokenInput"
+        name="tokenInput"
+        rows="4"
+        cols="50"
+        placeholder="Paste the token or the complete connection command"
+        bind:value={tokenInput}
+    />
+    <br />
     <br />
     <button disabled={!isSaveEnabled} on:click={onSaveClicked}>
         Save & Restart
