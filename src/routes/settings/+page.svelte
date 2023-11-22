@@ -1,6 +1,4 @@
 <script>
-    import { onMount } from "svelte";
-
     import TunnelSettings from "../../model/TunnelSettings";
 
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
