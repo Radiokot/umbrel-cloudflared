@@ -1,13 +1,11 @@
 import { json } from '@sveltejs/kit';
 import TunnelStatus from '../../../model/TunnelStatus';
-
-import {
-    CLOUDFLARED_HOSTNAME,
-    CLOUDFLARED_METRICS_PORT
-} from '$env/dynamic/private';
 import TunnelRoute from '../../../model/TunnelRoute';
 
-const CLOUDFLARE_METRICS_URL = 'http://' + CLOUDFLARED_HOSTNAME + ':' + CLOUDFLARED_METRICS_PORT
+import { env } from '$env/dynamic/private';
+
+const CLOUDFLARE_METRICS_URL = 'http://' + env.CLOUDFLARED_HOSTNAME + ':' + env.CLOUDFLARED_METRICS_PORT
+
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
@@ -32,7 +30,7 @@ export async function GET() {
 /**
  * @returns {Promise<string>}
  */
-async function getCloudflaredHealth() {
+async function getCloudflaredHealth() {    
     let response = await fetch(CLOUDFLARE_METRICS_URL + '/healthcheck')
     if (response.ok) {
         return response.text();

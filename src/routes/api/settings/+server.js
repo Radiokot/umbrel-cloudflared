@@ -5,13 +5,10 @@ import {
 } from 'fs';
 
 import TunnelSettings from '../../../model/TunnelSettings';
-import {
-    CLOUDFLARED_TOKEN_FILE,
-    CLOUDFLARED_HOSTNAME,
-} from '$env/dynamic/private';
+import { env } from '$env/dynamic/private';
 
 const TOKEN_FILE_ENCODING = 'utf8'
-const CLOUDFLARED_CONTROL_URL = 'http://' + CLOUDFLARED_HOSTNAME + ':' + 8018
+const CLOUDFLARED_CONTROL_URL = 'http://' + env.CLOUDFLARED_HOSTNAME + ':' + 8018
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
@@ -65,7 +62,7 @@ async function getTokenFromFile() {
 async function saveTokenToFile(token) {
     let tokenFileHandle
     try {
-        tokenFileHandle = await fsPromises.open(CLOUDFLARED_TOKEN_FILE, 'w')
+        tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE, 'w')
         await tokenFileHandle.writeFile(token, {
             encoding: TOKEN_FILE_ENCODING,
             flag: 'w'
