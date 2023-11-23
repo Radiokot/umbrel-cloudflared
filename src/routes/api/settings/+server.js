@@ -8,7 +8,7 @@ import TunnelSettings from '../../../model/TunnelSettings';
 import {
     CLOUDFLARED_TOKEN_FILE,
     CLOUDFLARED_HOSTNAME,
-} from '$env/static/private';
+} from '$env/dynamic/private';
 
 const TOKEN_FILE_ENCODING = 'utf8'
 const CLOUDFLARED_CONTROL_URL = 'http://' + CLOUDFLARED_HOSTNAME + ':' + 8018

@@ -4,11 +4,11 @@ FROM node:lts-slim AS builder
 # work under the /app directory
 WORKDIR /app
 
-# copy npm files first
-COPY package.json package-lock.json ./
+# copy files required to install dependencies first
+COPY package.json package-lock.json svelte.config.js ./
 
-# install the production dependencies
-RUN npm install -p
+# install the dependencies for production
+RUN npm i -p
 
 # copy all the sources
 COPY . .
@@ -22,11 +22,18 @@ FROM gcr.io/distroless/nodejs18-debian11
 # work under the /app directory
 WORKDIR /app
 
-# copy the built app
-COPY --from=builder /app/build/ ./
+# copy the built app, dependencies and the package file
+# as described in the Svelte adapter-node docs
+COPY --from=builder /app/build server/
+COPY --from=builder /app/node_modules node_modules/
+COPY package.json .
 
 # expose the app server port
 EXPOSE 3000
 
-# run the app server
-CMD ["index.js"]
+# tell Node and other code this is production
+ENV NODE_ENV=production
+
+# run the app server (entrypoint is node)
+CMD ["server"]
+

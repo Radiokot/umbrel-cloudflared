@@ -4,7 +4,7 @@ import TunnelStatus from '../../../model/TunnelStatus';
 import {
     CLOUDFLARED_HOSTNAME,
     CLOUDFLARED_METRICS_PORT
-} from '$env/static/private';
+} from '$env/dynamic/private';
 import TunnelRoute from '../../../model/TunnelRoute';
 
 const CLOUDFLARE_METRICS_URL = 'http://' + CLOUDFLARED_HOSTNAME + ':' + CLOUDFLARED_METRICS_PORT
