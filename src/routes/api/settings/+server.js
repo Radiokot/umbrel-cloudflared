@@ -7,9 +7,11 @@ import {
 import TunnelSettings from '../../../model/TunnelSettings';
 import {
     CLOUDFLARED_TOKEN_FILE,
+    CLOUDFLARED_HOSTNAME,
 } from '$env/static/private';
 
 const TOKEN_FILE_ENCODING = 'utf8'
+const CLOUDFLARED_CONTROL_URL = 'http://' + CLOUDFLARED_HOSTNAME + ':' + 8018
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
@@ -25,6 +27,8 @@ export async function POST({ request }) {
     } else {
         throw error(400, '"token" is required and must be a string')
     }
+
+    await restartConnector()
 
     return GET()
 }
@@ -70,5 +74,19 @@ async function saveTokenToFile(token) {
         if (tokenFileHandle !== undefined) {
             await tokenFileHandle.close();
         }
+    }
+}
+
+async function restartConnector() {
+    let response = await fetch(CLOUDFLARED_CONTROL_URL + '/cfd-restart', {
+        method: "POST",
+    })
+
+    if (response.status != 202) {
+        console.error('settings.restartConnector: unexpected_response', {
+            status: response.status,
+        })
+
+        throw new Error('Unexpected response from the restart: ' + response.status)
     }
 }
