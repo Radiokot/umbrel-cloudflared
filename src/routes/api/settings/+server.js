@@ -37,16 +37,16 @@ async function getTokenFromFile() {
     let tokenFileHandle
     try {
         try {
-            await fsPromises.access(CLOUDFLARED_TOKEN_FILE, fsConstants.R_OK)
+            await fsPromises.access(env.CLOUDFLARED_TOKEN_FILE, fsConstants.R_OK)
         } catch {
             console.warn('settings.getTokenFromFile: file_not_accessible:', {
-                file: CLOUDFLARED_TOKEN_FILE
+                file: env.CLOUDFLARED_TOKEN_FILE
             })
 
             return null
         }
 
-        tokenFileHandle = await fsPromises.open(CLOUDFLARED_TOKEN_FILE, 'r')
+        tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE, 'r')
         return (await tokenFileHandle.readFile(TOKEN_FILE_ENCODING)).trim()
     } finally {
         if (tokenFileHandle !== undefined) {
