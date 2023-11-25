@@ -42,8 +42,8 @@
         <h3>Cloudflare Tunnel</h3>
         <span id="connector-version">2023.10.0</span>
     </div>
-    <div style="margin-left: auto;">
-        <a href="/settings">Settings</a>
+    <div style="margin-left: auto; margin-top: auto; margin-bottom: auto; display: flex;">
+        <a class="button button-secondary" href="/settings">Settings</a>
     </div>
 </div>
 
@@ -160,6 +160,26 @@
 
     .route-row .route-endpoint a {
         text-decoration: none;
+    }
+
+    .button {
+        border: 1px solid;
+        border-radius: 4px;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
+        padding-left: 2.25em;
+        padding-right: 2.25em;
+    }
+
+    .button-secondary {
+        color: var(--secondary-text-color);
+        border-color: var(--secondary-text-color) !important;
+        transition: 150ms cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+
+    .button-secondary:hover {
+        background: var(--secondary-text-color);
+        color: #ffffff;
     }
 
     @media (prefers-color-scheme: dark) {
