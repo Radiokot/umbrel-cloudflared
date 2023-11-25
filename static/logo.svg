@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#C5EBF5;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill:none;stroke:#6ECCE5;stroke-width:1.4286;stroke-linecap:round;stroke-miterlimit:10;}
+	.st3{fill:none;stroke:#6ECCE5;stroke-width:1.4286;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:4;}
+	.st4{fill:url(#SVGID_00000068641717614849828250000007074551096189455527_);}
+	.st5{fill:none;stroke:#FFFFFF;stroke-width:1.4286;stroke-miterlimit:10;}
+	.st6{fill:none;stroke:#FFFFFF;stroke-width:1.4286;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:4;}
+	.st7{fill:#084E82;stroke:#FFFFFF;stroke-width:1.4286;stroke-miterlimit:10;}
+</style>
+<g>
+	<rect class="st0" width="256" height="256"/>
+</g>
+<radialGradient id="SVGID_1_" cx="127.6487" cy="128.1297" r="100.0001" gradientUnits="userSpaceOnUse">
+	<stop  offset="4.901567e-07" style="stop-color:#084E82"/>
+	<stop  offset="1" style="stop-color:#003682"/>
+</radialGradient>
+<path class="st1" d="M227.65,128.12c0,55.24-44.77,100.01-100.01,100.01c-55.22,0-99.99-44.77-99.99-100.01
+	c0-55.22,44.77-99.99,99.99-99.99C182.88,28.13,227.65,72.9,227.65,128.12z"/>
+<circle class="st2" cx="127.5" cy="128.5" r="75"/>
+<circle class="st3" cx="127.5" cy="128.5" r="52.35"/>
+<linearGradient id="SVGID_00000103977867919090657110000012394505507090302649_" gradientUnits="userSpaceOnUse" x1="127.6487" y1="228.1" x2="127.6487" y2="112.934">
+	<stop  offset="5.327789e-09" style="stop-color:#3FA9F5"/>
+	<stop  offset="1" style="stop-color:#0055DC"/>
+</linearGradient>
+<path style="fill:url(#SVGID_00000103977867919090657110000012394505507090302649_);" d="M35.15,166.29l92.55-53.35l92.45,53.57
+	c-15.1,36.17-50.81,61.6-92.45,61.6C85.96,228.1,50.2,202.58,35.15,166.29z"/>
+<line class="st5" x1="123" y1="122" x2="72.5" y2="211.5"/>
+<line class="st5" x1="133.5" y1="122.5" x2="184.5" y2="210.5"/>
+<line class="st6" x1="128" y1="123" x2="128" y2="195"/>
+<circle class="st7" cx="128.5" cy="113.5" r="10"/>
+</svg>

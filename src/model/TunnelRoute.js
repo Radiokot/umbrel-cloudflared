@@ -36,15 +36,13 @@ export default class TunnelRoute {
         this.serviceUrl = serviceUrl
 
         /**
-         * Route public URL
+         * Route public endpoint, without scheme
          * 
          * @type {string}
          */
-        this.publicUrl = '//' +
-            (this.path
-                ? this.publicHostname + '/' + this.path
-                : this.publicHostname
-            )
+        this.publicEndpoint = this.path
+            ? this.publicHostname + '/' + this.path
+            : this.publicHostname
     }
 
     /**
