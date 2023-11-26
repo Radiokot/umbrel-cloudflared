@@ -1,4 +1,5 @@
 <script>
+    import TunnelRoute from "../components/TunnelRoute.svelte";
     import tunnelStatus from "../stores/tunnel-status";
 
     $: tunnelStatusString = $tunnelStatus
@@ -55,30 +56,14 @@
     <div class="card p-3 p-md-4">
         <p class="label">Routes</p>
 
-        <div class="row row-col-md-2">
+        <div class="row">
             {#each tunnelRoutes as tunnelRoute (tunnelRoute.id)}
-                <div class="route-row col mt-3 mt-md-4">
-                    <img
-                        class="route-image me-3 me-md-4"
-                        src="/route-image.svg"
-                        alt="Route"
+                <span class="col mt-3 mt-md-4">
+                    <TunnelRoute
+                        publicEndpoint={tunnelRoute.publicEndpoint}
+                        serviceUrl={tunnelRoute.serviceUrl}
                     />
-                    <div>
-                        <p class="route-endpoint line-clamp">
-                            <b>
-                                <a
-                                    href="https://{tunnelRoute.publicEndpoint}"
-                                    target="_blank"
-                                >
-                                    {tunnelRoute.publicEndpoint}
-                                </a>
-                            </b>
-                        </p>
-                        <small class="line-clamp"
-                            >{tunnelRoute.serviceUrl}</small
-                        >
-                    </div>
-                </div>
+                </span>
             {/each}
         </div>
     </div>
@@ -141,32 +126,6 @@
         color: var(--secondary-text-color);
         margin-top: 0.5em;
         margin-bottom: 0.5em;
-    }
-
-    .route-row {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .route-row .route-image {
-        height: 5.25em;
-    }
-
-    .route-row .route-endpoint {
-        display: block;
-        margin-top: 0.5em;
-        margin-bottom: 1.5em;
-    }
-
-    .route-row .route-endpoint a {
-        text-decoration: none;
-    }
-
-    .line-clamp {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
     }
 
     .button {
