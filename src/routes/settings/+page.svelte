@@ -103,24 +103,54 @@
     <title>Settings | Cloudflare Tunnel client</title>
 </svelte:head>
 
-<h1>Settings</h1>
+<header class="row justify-content-between align-items-center my-3">
+    <h3 class="d-block col-auto">Settings</h3>
+    <div class="col-auto">
+        <a class="button button-secondary" href="/">Back</a>
+    </div>
+</header>
+
 {#await loadTunnelSettings()}
     <p>Loading...</p>
 {:then}
-    <p><label for="tokenInput">Connector token</label></p>
-    <textarea
-        id="tokenInput"
-        name="tokenInput"
-        rows="4"
-        cols="50"
-        placeholder="Paste the token or the complete connection command"
-        bind:value={tokenInput}
-    />
-    <br />
-    <br />
-    <button disabled={!isSaveEnabled} on:click={onSaveClicked}>
+    <div class="row">
+        <p class="d-block col-12">
+            <label for="tokenInput">Connector token</label>
+        </p>
+
+        <div class="col-12 col-sm-9 col-md-7">
+            <textarea
+                id="tokenInput"
+                name="tokenInput"
+                rows="5"
+                placeholder="Paste the token or the complete connection command"
+                bind:value={tokenInput}
+            />
+        </div>
+    </div>
+    <button class="button button-primary mt-3 col-12 col-sm-auto" disabled={!isSaveEnabled} on:click={onSaveClicked}>
         Save & Restart
     </button>
 {:catch}
     <b>Failed to load</b>
 {/await}
+
+<style>
+    header h3 {
+        font-size: 2rem;
+        margin: 0px;
+    }
+
+    #tokenInput {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    @media (max-width: 30em) {
+        header h3 {
+            font-size: 1.5rem;
+        }
+    }
+</style>

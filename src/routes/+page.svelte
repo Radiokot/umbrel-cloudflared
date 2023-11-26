@@ -75,7 +75,6 @@
         --status-warning-color: #f6b900;
         --card-background-color: #ffffff;
         --card-shadow-color: rgba(209, 213, 223, 0.5);
-        --secondary-text-color: #6b7280;
     }
 
     header .logo {
@@ -128,33 +127,10 @@
         margin-bottom: 0.5em;
     }
 
-    .button {
-        display: block;
-        border: 1px solid;
-        border-radius: 4px;
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
-        padding-left: 2.25em;
-        padding-right: 2.25em;
-        text-align: center;
-    }
-
-    .button-secondary {
-        color: var(--secondary-text-color);
-        border-color: var(--secondary-text-color) !important;
-        transition: 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-
-    .button-secondary:hover {
-        background: var(--secondary-text-color);
-        color: #ffffff;
-    }
-
     @media (prefers-color-scheme: dark) {
         :root {
             --card-shadow-color: rgba(16, 16, 17, 0.5);
             --card-background-color: #2e2e2e;
-            --secondary-text-color: #878d9b;
         }
     }
 

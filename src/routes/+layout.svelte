@@ -11,6 +11,9 @@
         --background-color: #f7f9fb;
         --text-color: #141821;
         --link-color: #0055dc;
+        --secondary-text-color: #6b7280;
+        --primary-button-color: #003882;
+        --primary-button-hover-color: #0055dc;
 
         background-color: var(--background-color);
         color: var(--text-color);
@@ -38,11 +41,57 @@
         max-width: 1024px;
     }
 
+    :global(.button) {
+        display: block;
+        background: none;
+        border: 1px solid;
+        border-radius: 4px;
+        padding-left: 2.25em;
+        padding-right: 2.25em;
+        text-align: center;
+        font-size: 12pt;
+        line-height: 24pt;
+        transition: 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    :global(.button-secondary) {
+        color: var(--secondary-text-color);
+        border-color: var(--secondary-text-color) !important;
+    }
+
+    :global(.button-secondary:hover) {
+        background: var(--secondary-text-color);
+        color: #ffffff;
+    }
+
+    :global(.button-primary) {
+        color: #ffffff;
+        border-color: var(--primary-button-color) !important;
+        background: var(--primary-button-color);
+    }
+
+    :global(.button-primary:hover) {
+        border-color: var(--primary-button-hover-color) !important;
+        background: var(--primary-button-hover-color);
+    }
+
+    :global(.button:disabled, .button-secondary:disabled) {
+        opacity: 0.4;
+        background: none;
+    }
+
+    :global(.button-primary:disabled) {
+        border-color: var(--primary-button-color) !important;
+        background: var(--primary-button-color);
+    }
+
     @media (prefers-color-scheme: dark) {
         :root {
             --background-color: #262626;
             --text-color: #fcfcfc;
             --link-color: #337ef6;
+            --secondary-text-color: #878d9b;
+            --primary-button-color: #264773;
         }
     }
 </style>
