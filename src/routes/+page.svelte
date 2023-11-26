@@ -16,64 +16,71 @@
     <title>Cloudflare Tunnel client</title>
 </svelte:head>
 
-<div class="header-row">
-    <img class="logo" width="120" height="120" src="/logo.svg" alt="Logo" />
-    <div>
-        <span>
-            <svg
-                width="8"
-                height="8"
-                viewBox="0 0 8 8"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <circle
-                    class={isTunnelHealthy ? "status-ok" : "status-warning"}
-                    cx="4"
-                    cy="4"
-                    r="4"
-                    fill="#000000"
-                />
-            </svg>
-            <small class={isTunnelHealthy ? "status-ok" : "status-warning"}
-                >{tunnelStatusString}</small
-            >
-        </span>
-        <h3>Cloudflare Tunnel</h3>
-        <span id="connector-version">2023.10.0</span>
+<header class="row justify-content-between align-items-center my-3">
+    <div class="d-flex col-md-auto mb-3">
+        <img class="logo me-3" src="/logo.svg" alt="Logo" />
+        <div>
+            <span>
+                <svg
+                    width="8"
+                    height="8"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        class={isTunnelHealthy ? "status-ok" : "status-warning"}
+                        cx="4"
+                        cy="4"
+                        r="4"
+                        fill="#000000"
+                    />
+                </svg>
+                <small class={isTunnelHealthy ? "status-ok" : "status-warning"}
+                    >{tunnelStatusString}</small
+                >
+            </span>
+            <h3>Cloudflare Tunnel</h3>
+            <span id="connector-version">2023.10.0</span>
+        </div>
     </div>
-    <div style="margin-left: auto; margin-top: auto; margin-bottom: auto; display: flex;">
+    <div class="col-md-auto">
         <a class="button button-secondary" href="/settings">Settings</a>
     </div>
-</div>
-
-<br />
-<br />
+</header>
 
 {#if isTunnelHealthy && tunnelRoutes != null && tunnelRoutes.length == 0}
     <center><p>No active routes</p></center>
 {:else if tunnelRoutes != null && tunnelRoutes.length > 0}
-    <div class="card">
+    <div class="card p-3 p-md-4">
         <p class="label">Routes</p>
 
-        {#each tunnelRoutes as tunnelRoute (tunnelRoute.id)}
-            <div class="route-row">
-                <img class="route-image" src="/route-image.svg" alt="Route" />
-                <div>
-                    <p class="route-endpoint">
-                        <b>
-                            <a
-                                href="https://{tunnelRoute.publicEndpoint}"
-                                target="_blank"
-                            >
-                                {tunnelRoute.publicEndpoint}
-                            </a>
-                        </b>
-                    </p>
-                    <small>{tunnelRoute.serviceUrl}</small>
+        <div class="row row-col-md-2">
+            {#each tunnelRoutes as tunnelRoute (tunnelRoute.id)}
+                <div class="route-row col mt-3 mt-md-4">
+                    <img
+                        class="route-image me-3 me-md-4"
+                        src="/route-image.svg"
+                        alt="Route"
+                    />
+                    <div>
+                        <p class="route-endpoint line-clamp">
+                            <b>
+                                <a
+                                    href="https://{tunnelRoute.publicEndpoint}"
+                                    target="_blank"
+                                >
+                                    {tunnelRoute.publicEndpoint}
+                                </a>
+                            </b>
+                        </p>
+                        <small class="line-clamp"
+                            >{tunnelRoute.serviceUrl}</small
+                        >
+                    </div>
                 </div>
-            </div>
-        {/each}
+            {/each}
+        </div>
     </div>
 {/if}
 
@@ -86,18 +93,14 @@
         --secondary-text-color: #6b7280;
     }
 
-    .header-row {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .logo {
+    header .logo {
+        width: 120px;
+        height: 120px;
         border-radius: 22%;
         border: 1px solid #e1e6ea;
-        margin-right: 1.5rem !important;
     }
 
-    .header-row h3 {
+    header h3 {
         font-size: 2rem;
         margin-top: 0;
         margin-bottom: 0.375rem;
@@ -132,28 +135,25 @@
         -webkit-box-shadow: 0 10px 30px var(--card-shadow-color);
         box-shadow: 0 10px 30px var(--card-shadow-color);
         border-radius: 1rem;
-        padding-left: 2.25rem;
-        padding-right: 2.25rem;
-        padding-top: 1.25rem;
-        padding-bottom: 2.25rem;
     }
 
     .card .label {
         color: var(--secondary-text-color);
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
     }
 
     .route-row {
         display: flex;
         flex-direction: row;
-        margin-top: 1.25em;
     }
 
     .route-row .route-image {
         height: 5.25em;
-        margin-right: 1.25em;
     }
 
     .route-row .route-endpoint {
+        display: block;
         margin-top: 0.5em;
         margin-bottom: 1.5em;
     }
@@ -162,19 +162,28 @@
         text-decoration: none;
     }
 
+    .line-clamp {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+
     .button {
+        display: block;
         border: 1px solid;
         border-radius: 4px;
         padding-top: 0.25em;
         padding-bottom: 0.25em;
         padding-left: 2.25em;
         padding-right: 2.25em;
+        text-align: center;
     }
 
     .button-secondary {
         color: var(--secondary-text-color);
         border-color: var(--secondary-text-color) !important;
-        transition: 150ms cubic-bezier(0.215, 0.610, 0.355, 1);
+        transition: 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 
     .button-secondary:hover {
@@ -187,6 +196,17 @@
             --card-shadow-color: rgba(16, 16, 17, 0.5);
             --card-background-color: #2e2e2e;
             --secondary-text-color: #878d9b;
+        }
+    }
+
+    @media (max-width: 30em) {
+        header .logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        header h3 {
+            font-size: 1.5rem;
         }
     }
 </style>

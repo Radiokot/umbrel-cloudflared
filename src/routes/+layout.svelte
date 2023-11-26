@@ -1,4 +1,8 @@
-<div class="content-container">
+<script>
+    import "$lib/bootstrap-grid.min.css";
+</script>
+
+<div id="content" class="mx-auto px-2 pt-2 pt-md-4 pb-4">
     <slot />
 </div>
 
@@ -23,8 +27,6 @@
             Segoe UI Emoji,
             Segoe UI Symbol,
             Noto Color Emoji;
-        padding-left: 1rem;
-        padding-right: 1rem;
     }
 
     :global(a) {
@@ -32,11 +34,8 @@
         color: var(--link-color);
     }
 
-    .content-container {
-        width: 100%;
+    #content {
         max-width: 1024px;
-        margin: auto;
-        padding-top: 3.25rem;
     }
 
     @media (prefers-color-scheme: dark) {
