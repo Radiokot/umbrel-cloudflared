@@ -1,4 +1,5 @@
 <script>
+    import { PUBLIC_GUIDE_URL } from "$env/static/public";
     import TunnelSettings from "../../model/TunnelSettings";
 
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
@@ -116,6 +117,8 @@
     <div class="row">
         <p class="d-block col-12">
             <label for="tokenInput">Connector token</label>
+            <span>&nbsp;</span>
+            <a href={PUBLIC_GUIDE_URL} target="_blank">(?)</a>
         </p>
 
         <div class="col-12 col-sm-9 col-md-7">
@@ -128,7 +131,11 @@
             />
         </div>
     </div>
-    <button class="button button-primary mt-3 col-12 col-sm-auto" disabled={!isSaveEnabled} on:click={onSaveClicked}>
+    <button
+        class="button button-primary mt-3 col-12 col-sm-auto"
+        disabled={!isSaveEnabled}
+        on:click={onSaveClicked}
+    >
         Save & Restart
     </button>
 {:catch}

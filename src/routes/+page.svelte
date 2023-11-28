@@ -2,14 +2,8 @@
     import AppHeader from "../components/AppHeader.svelte";
     import TunnelRoute from "../components/TunnelRoute.svelte";
     import tunnelStatus from "../stores/tunnel-status";
+    import { PUBLIC_GUIDE_URL } from "$env/static/public";
 
-    $: tunnelStatusString = $tunnelStatus
-        ? $tunnelStatus.isUnreachable()
-            ? "Unreacahable"
-            : $tunnelStatus.isOk()
-              ? "Running"
-              : $tunnelStatus.status
-        : "Loading…";
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
     $: isTunnelUnreachable = $tunnelStatus?.isUnreachable() == true;
     $: tunnelRoutes = $tunnelStatus?.routes;
@@ -63,7 +57,7 @@
                 <a
                     class="button button-primary"
                     target="_blank"
-                    href="https://github.com/Radiokot/umbrel-cloudflared/wiki/How-to-set-up-Cloudflare-Tunnel-on-your-Umbrel#add-routes-to-expose-apps"
+                    href={PUBLIC_GUIDE_URL}
                 >
                     Learn more
                 </a>
