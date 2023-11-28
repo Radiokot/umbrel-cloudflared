@@ -1,13 +1,14 @@
 <script>
     import tunnelStatus from "../stores/tunnel-status";
 
-    $: tunnelStatusString = $tunnelStatus
-        ? $tunnelStatus.isUnreachable()
-            ? "Unreacahable"
-            : $tunnelStatus.isOk()
-              ? "Running"
-              : $tunnelStatus.status
-        : "Loading…";
+    $: isTunnelStatusLoading = $tunnelStatus == null;
+    $: tunnelStatusString = isTunnelStatusLoading
+        ? "Loading…"
+        : $tunnelStatus?.isUnreachable()
+          ? "Unreacahable"
+          : $tunnelStatus?.isOk()
+            ? "Running"
+            : $tunnelStatus?.status;
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
 </script>
 
@@ -15,24 +16,30 @@
     <img class="logo me-3" src="/logo.svg" alt="Logo" />
     <div>
         <span>
-            <svg
-                width="8"
-                height="8"
-                viewBox="0 0 8 8"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            {#if !isTunnelStatusLoading}
+                <svg
+                    width="8"
+                    height="8"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        class:status-ok={isTunnelHealthy}
+                        class:status-warning={!isTunnelHealthy}
+                        cx="4"
+                        cy="4"
+                        r="4"
+                        fill="#000000"
+                    />
+                </svg>
+            {/if}
+            <small
+                class:status-ok={!isTunnelStatusLoading && isTunnelHealthy}
+                class:status-warning={!isTunnelStatusLoading && !isTunnelHealthy}
             >
-                <circle
-                    class={isTunnelHealthy ? "status-ok" : "status-warning"}
-                    cx="4"
-                    cy="4"
-                    r="4"
-                    fill="#000000"
-                />
-            </svg>
-            <small class={isTunnelHealthy ? "status-ok" : "status-warning"}
-                >{tunnelStatusString}</small
-            >
+                {tunnelStatusString}
+            </small>
         </span>
         <h3>Cloudflare Tunnel</h3>
         <span id="connector-version">2023.10.0</span>
