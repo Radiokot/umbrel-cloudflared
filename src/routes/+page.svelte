@@ -10,6 +10,7 @@
               : $tunnelStatus.status
         : "Loading…";
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
+    $: isTunnelUnreachable = $tunnelStatus?.isUnreachable() == true;
     $: tunnelRoutes = $tunnelStatus?.routes;
 </script>
 
@@ -65,6 +66,31 @@
                     />
                 </span>
             {/each}
+        </div>
+    </div>
+{:else if isTunnelUnreachable}
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto">
+            <img class="d-none d-sm-block" src="/hero-image.svg" alt="Start" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <h3>Set up your tunnel</h3>
+            <p>
+                1. <a href="/settings">Configure the app</a> with the start command
+                of your Cloudflare tunnel
+            </p>
+            <p>2. Create routes to access your Umbrel apps from the Internet</p>
+            <br />
+            <div class="d-block d-sm-flex">
+                <!-- d-block d-sm-flex makes the button full width only on xs-->
+                <a
+                    class="button button-primary"
+                    target="_blank"
+                    href="https://github.com/Radiokot/umbrel-cloudflared/wiki/How-to-set-up-Cloudflare-Tunnel-on-your-Umbrel#add-routes-to-expose-apps"
+                >
+                    Learn more
+                </a>
+            </div>
         </div>
     </div>
 {/if}
