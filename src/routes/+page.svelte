@@ -1,4 +1,5 @@
 <script>
+    import AppHeader from "../components/AppHeader.svelte";
     import TunnelRoute from "../components/TunnelRoute.svelte";
     import tunnelStatus from "../stores/tunnel-status";
 
@@ -18,35 +19,11 @@
     <title>Cloudflare Tunnel client</title>
 </svelte:head>
 
-<header class="row justify-content-between align-items-center my-3">
-    <div class="d-flex col-md-auto mb-3">
-        <img class="logo me-3" src="/logo.svg" alt="Logo" />
-        <div>
-            <span>
-                <svg
-                    width="8"
-                    height="8"
-                    viewBox="0 0 8 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle
-                        class={isTunnelHealthy ? "status-ok" : "status-warning"}
-                        cx="4"
-                        cy="4"
-                        r="4"
-                        fill="#000000"
-                    />
-                </svg>
-                <small class={isTunnelHealthy ? "status-ok" : "status-warning"}
-                    >{tunnelStatusString}</small
-                >
-            </span>
-            <h3>Cloudflare Tunnel</h3>
-            <span id="connector-version">2023.10.0</span>
-        </div>
-    </div>
-    <div class="col-md-auto">
+<header class="row justify-content-between my-3">
+    <span class="col-md-auto mb-3">
+        <AppHeader />
+    </span>
+    <div class="col-md-auto my-md-4">
         <a class="button button-secondary" href="/settings">Settings</a>
     </div>
 </header>
@@ -97,37 +74,8 @@
 
 <style>
     :root {
-        --status-ok-color: #00cd98;
-        --status-warning-color: #f6b900;
         --card-background-color: #ffffff;
         --card-shadow-color: rgba(209, 213, 223, 0.5);
-    }
-
-    header .logo {
-        width: 120px;
-        height: 120px;
-        border-radius: 22%;
-        border: 1px solid #e1e6ea;
-    }
-
-    header h3 {
-        font-size: 2rem;
-        margin-top: 0;
-        margin-bottom: 0.375rem;
-    }
-
-    #connector-version {
-        color: var(--secondary-text-color);
-    }
-
-    .status-ok {
-        color: var(--status-ok-color);
-        fill: var(--status-ok-color);
-    }
-
-    .status-warning {
-        color: var(--status-warning-color);
-        fill: var(--status-warning-color);
     }
 
     .card {
@@ -157,17 +105,6 @@
         :root {
             --card-shadow-color: rgba(16, 16, 17, 0.5);
             --card-background-color: #2e2e2e;
-        }
-    }
-
-    @media (max-width: 30em) {
-        header .logo {
-            width: 80px;
-            height: 80px;
-        }
-
-        header h3 {
-            font-size: 1.5rem;
         }
     }
 </style>

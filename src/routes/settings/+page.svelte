@@ -105,7 +105,7 @@
 
 <header class="row justify-content-between align-items-center my-3">
     <h3 class="d-block col-auto">Settings</h3>
-    <div class="col-auto">
+    <div class="col-auto my-md-4">
         <a class="button button-secondary" href="/">Back</a>
     </div>
 </header>
