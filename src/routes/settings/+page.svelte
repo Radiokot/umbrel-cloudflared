@@ -8,11 +8,21 @@
     let isSavingSettings = false;
     $: parsedToken = parseToken(tokenInput);
     $: isSaveEnabled = parsedToken != null && !isSavingSettings;
+    /**
+     * @type {string?}
+     */
+    let saveResult = null;
 
     async function onSaveClicked() {
         isSavingSettings = true;
+        saveResult = null;
         try {
             await saveTunnelSettings();
+            saveResult = "The connector will restart in a moment.";
+        } catch (err) {
+            console.error("onSaveClicked(): save_failed:", err)
+
+            saveResult = "Failed to save the settings. Check the dev console for errors.";
         } finally {
             isSavingSettings = false;
         }
@@ -93,6 +103,8 @@
                 status: response.status,
                 test: response.text,
             });
+
+            throw new Error("Tunnel settings saving failed");
         } else {
             let updatedSettings = TunnelSettings.from(await response.json());
             onTunnelSettingsLoaded(updatedSettings);
@@ -112,7 +124,7 @@
 </header>
 
 {#await loadTunnelSettings()}
-    <p>Loading...</p>
+    <p>Loading…</p>
 {:then}
     <div class="row">
         <p class="d-block col-12">
@@ -138,6 +150,9 @@
     >
         Save & Restart
     </button>
+    {#if saveResult}
+        <p>{saveResult} <a href="/">Go back</a></p>
+    {/if}
 {:catch}
     <b>Failed to load</b>
 {/await}
