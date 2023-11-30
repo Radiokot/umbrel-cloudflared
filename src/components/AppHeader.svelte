@@ -10,13 +10,14 @@
             ? "Running"
             : $tunnelStatus?.status;
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
+    $: connecorVersion = $tunnelStatus?.version;
 </script>
 
 <div class="d-flex">
     <img class="logo me-3" src="/logo.svg" alt="Logo" />
     <div>
-        <span>
-            {#if !isTunnelStatusLoading}
+        {#if !isTunnelStatusLoading}
+            <span>
                 <svg
                     width="8"
                     height="8"
@@ -33,16 +34,19 @@
                         fill="#000000"
                     />
                 </svg>
-            {/if}
-            <small
-                class:status-ok={!isTunnelStatusLoading && isTunnelHealthy}
-                class:status-warning={!isTunnelStatusLoading && !isTunnelHealthy}
-            >
-                {tunnelStatusString}
-            </small>
-        </span>
+                <small
+                    class:status-ok={isTunnelHealthy}
+                    class:status-warning={!isTunnelHealthy}
+                >
+                    {tunnelStatusString}
+                </small>
+            </span>
+        {:else}
+            <span><small>&nbsp;</small></span>
+        {/if}
+
         <h3>Cloudflare Tunnel</h3>
-        <span id="connector-version">2023.10.0</span>
+        <span id="connector-version">{connecorVersion || "Loading data…"}</span>
     </div>
 </div>
 

@@ -2,13 +2,19 @@
 export default class TunnelStatus {
     /**
      * @param {string} status 
+     * @package {string} version
      * @param {import('./TunnelRoute').default[]} routes
      */
-    constructor(status, routes = []) {
+    constructor(status, version = "unknown", routes = []) {
         /**
          * @type {string}
          */
         this.status = status
+
+        /**
+         * @type {string}
+         */
+        this.version = version
 
         /**
          * @type {import('./TunnelRoute').default[]}
@@ -36,6 +42,6 @@ export default class TunnelStatus {
      * @returns {TunnelStatus}
      */
     static from(json) {
-        return new TunnelStatus(json.status, json.routes);
+        return new TunnelStatus(json.status, json.version, json.routes);
     }
 }
