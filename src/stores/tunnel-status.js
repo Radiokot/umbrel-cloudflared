@@ -28,7 +28,7 @@ export default readable(null, (set) => {
     /**
      * @type {NodeJS.Timeout}
      */
-    let updateInterval = setInterval(updateValue, 5000);
+    let updateInterval = setInterval(updateValue, 4000);
 
     return () => clearInterval(updateInterval);
 })
