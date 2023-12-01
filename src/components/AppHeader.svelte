@@ -47,7 +47,7 @@
 
         <h3>Cloudflare Tunnel</h3>
 
-        <span>
+        <span class="secondary-text">
             {#if isTunnelHealthy && connecorVersion != null}
                 {connecorVersion}
             {:else}
