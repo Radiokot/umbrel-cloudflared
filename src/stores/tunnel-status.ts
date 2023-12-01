@@ -3,17 +3,12 @@ import { browser } from '$app/environment';
 
 import TunnelStatus from "../model/TunnelStatus";
 
-/**
- * @type{(() => void)?}
- */
-export let setTunnelStatusRestarting = null
+export let setTunnelStatusRestarting: (() => void) | null = null
 
 /**
  * Auto-updating tunnel status store.
- * 
- * @type {import("svelte/store").Readable<TunnelStatus?>}
  */
-export default readable(null, (set) => {
+export default readable<TunnelStatus | null>(null, (set) => {
     setTunnelStatusRestarting = () => {
         set(TunnelStatus.restarting())
     }
@@ -34,9 +29,6 @@ export default readable(null, (set) => {
         updateValue()
     }
 
-    /**
-     * @type {NodeJS.Timeout}
-     */
     let updateInterval = setInterval(updateValue, 4000);
 
     return () => clearInterval(updateInterval);

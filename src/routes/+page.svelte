@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import AppHeader from "../components/AppHeader.svelte";
     import TunnelRoute from "../components/TunnelRoute.svelte";
     import tunnelStatus from "../stores/tunnel-status";

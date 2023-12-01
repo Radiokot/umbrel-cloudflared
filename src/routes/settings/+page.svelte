@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { PUBLIC_GUIDE_URL } from "$env/static/public";
     import TunnelSettings from "../../model/TunnelSettings";
     import { setTunnelStatusRestarting } from "../../stores/tunnel-status";
@@ -9,10 +9,7 @@
     let isSavingSettings = false;
     $: parsedToken = parseToken(tokenInput);
     $: isSaveEnabled = parsedToken != null && !isSavingSettings;
-    /**
-     * @type {string?}
-     */
-    let saveResult = null;
+    let saveResult: string | null = null;
 
     async function onSaveClicked() {
         isSavingSettings = true;
@@ -21,7 +18,7 @@
             await saveTunnelSettings();
             try {
                 if (setTunnelStatusRestarting) {
-                    setTunnelStatusRestarting()
+                    setTunnelStatusRestarting();
                 }
             } catch {}
             saveResult = "The connector will restart in a moment.";
@@ -36,10 +33,10 @@
     }
 
     /**
-     * @param {string} input Base64 Cloudflare token or the whole cloudflared start command
-     * @returns {string?} parsed Cloudflare token or null if the input is not valid
+     * @param input Base64 Cloudflare token or the whole cloudflared start command
+     * @returns parsed Cloudflare token or null if the input is not valid
      */
-    function parseToken(input) {
+    function parseToken(input: string): string | null {
         let matchedValue = input.match(tokenRegex)?.[0];
         if (!matchedValue) {
             return null;
@@ -66,10 +63,7 @@
         }
     }
 
-    /**
-     * @returns {Promise<TunnelSettings>}
-     */
-    async function getTunnelSettings() {
+    async function getTunnelSettings(): Promise<TunnelSettings> {
         let response = await fetch("/api/settings");
         if (!response.ok) {
             console.error("getTunnelSettings(): request_failed:", {
@@ -87,10 +81,7 @@
         onTunnelSettingsLoaded(tunnelSettings);
     }
 
-    /**
-     * @param {TunnelSettings} tunnelSettings
-     */
-    function onTunnelSettingsLoaded(tunnelSettings) {
+    function onTunnelSettingsLoaded(tunnelSettings: TunnelSettings) {
         if (tunnelSettings.token != null) {
             tokenInput = tunnelSettings.token;
         }

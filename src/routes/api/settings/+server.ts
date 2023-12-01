@@ -30,10 +30,7 @@ export async function POST({ request }) {
     return GET()
 }
 
-/**
- * @returns {Promise<string?>}
- */
-async function getTokenFromFile() {
+async function getTokenFromFile(): Promise<string | null> {
     let tokenFileHandle
     try {
         try {
@@ -56,10 +53,9 @@ async function getTokenFromFile() {
 }
 
 /**
- * 
- * @param {string} token value to save
+ * @param token value to save
  */
-async function saveTokenToFile(token) {
+async function saveTokenToFile(token: string) {
     let tokenFileHandle
     try {
         tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE, 'w')

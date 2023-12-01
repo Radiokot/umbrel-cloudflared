@@ -16,7 +16,7 @@ export async function GET() {
             ?.config
             ?.ingress
             ?.map(TunnelRoute.from)
-            ?.filter(route => route.publicHostname != "")
+            ?.filter((route: TunnelRoute) => route.publicHostname != "")
             || []
 
         return json(new TunnelStatus(cloudflaredHealth, cloudflaredVersion, routes))
@@ -27,10 +27,7 @@ export async function GET() {
     }
 }
 
-/**
- * @returns {Promise<string>}
- */
-async function getCloudflaredHealth() {
+async function getCloudflaredHealth(): Promise<string> {
     let response = await fetch(CLOUDFLARE_METRICS_URL + '/healthcheck')
     if (response.ok) {
         return response.text();
@@ -43,10 +40,7 @@ async function getCloudflaredHealth() {
     }
 }
 
-/**
- * @returns {Promise<any>}
- */
-async function getCloudflaredConfig() {
+async function getCloudflaredConfig(): Promise<any> {
     let response = await fetch(CLOUDFLARE_METRICS_URL + '/config')
     if (response.ok) {
         return response.json();
@@ -59,10 +53,7 @@ async function getCloudflaredConfig() {
     }
 }
 
-/**
- * @returns {Promise<string>}
- */
-async function getCloudflaredVersion() {
+async function getCloudflaredVersion(): Promise<string> {
     let response = await fetch(CLOUDFLARE_METRICS_URL + '/metrics')
     if (response.ok) {
         let responseText = await response.text()
