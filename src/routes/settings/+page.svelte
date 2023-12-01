@@ -1,6 +1,7 @@
 <script>
     import { PUBLIC_GUIDE_URL } from "$env/static/public";
     import TunnelSettings from "../../model/TunnelSettings";
+    import { setTunnelStatusRestarting } from "../../stores/tunnel-status";
 
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
 
@@ -18,11 +19,17 @@
         saveResult = null;
         try {
             await saveTunnelSettings();
+            try {
+                if (setTunnelStatusRestarting) {
+                    setTunnelStatusRestarting()
+                }
+            } catch {}
             saveResult = "The connector will restart in a moment.";
         } catch (err) {
-            console.error("onSaveClicked(): save_failed:", err)
+            console.error("onSaveClicked(): save_failed:", err);
 
-            saveResult = "Failed to save the settings. Check the dev console for errors.";
+            saveResult =
+                "Failed to save the settings. Check the dev console for errors.";
         } finally {
             isSavingSettings = false;
         }

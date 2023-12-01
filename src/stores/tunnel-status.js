@@ -4,11 +4,20 @@ import { browser } from '$app/environment';
 import TunnelStatus from "../model/TunnelStatus";
 
 /**
+ * @type{(() => void)?}
+ */
+export let setTunnelStatusRestarting = null
+
+/**
  * Auto-updating tunnel status store.
  * 
  * @type {import("svelte/store").Readable<TunnelStatus?>}
  */
 export default readable(null, (set) => {
+    setTunnelStatusRestarting = () => {
+        set(TunnelStatus.restarting())
+    }
+
     const updateValue = async () => {
         let response = await fetch("/api/status");
         if (!response.ok) {

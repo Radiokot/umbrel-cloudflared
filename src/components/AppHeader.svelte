@@ -6,7 +6,9 @@
         ? "Unreacahable"
         : $tunnelStatus?.isOk()
           ? "Running"
-          : $tunnelStatus?.status;
+          : $tunnelStatus?.isRestarting()
+            ? "Restarting"
+            : $tunnelStatus?.status;
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
     $: connecorVersion = $tunnelStatus?.version;
 </script>

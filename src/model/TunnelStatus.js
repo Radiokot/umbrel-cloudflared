@@ -30,6 +30,13 @@ export default class TunnelStatus {
     }
 
     /**
+     * @returns {boolean} if the tunnel is restarting
+     */
+    isRestarting() {
+        return this.status == 'RESTARTING'
+    }
+
+    /**
      * 
      * @returns {boolean} if the tunnel is fine
      */
@@ -43,5 +50,13 @@ export default class TunnelStatus {
      */
     static from(json) {
         return new TunnelStatus(json.status, json.version, json.routes);
+    }
+
+    /**
+     * Creates status of a restartung tunnel
+     * @returns {TunnelStatus}
+     */
+    static restarting() {
+        return new TunnelStatus('RESTARTING')
     }
 }
