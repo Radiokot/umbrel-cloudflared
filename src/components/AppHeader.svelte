@@ -2,13 +2,11 @@
     import tunnelStatus from "../stores/tunnel-status";
 
     $: isTunnelStatusLoading = $tunnelStatus == null;
-    $: tunnelStatusString = isTunnelStatusLoading
-        ? "Loading…"
-        : $tunnelStatus?.isUnreachable()
-          ? "Unreacahable"
-          : $tunnelStatus?.isOk()
-            ? "Running"
-            : $tunnelStatus?.status;
+    $: tunnelStatusString = $tunnelStatus?.isUnreachable()
+        ? "Unreacahable"
+        : $tunnelStatus?.isOk()
+          ? "Running"
+          : $tunnelStatus?.status;
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
     $: connecorVersion = $tunnelStatus?.version;
 </script>
@@ -16,8 +14,8 @@
 <div class="d-flex">
     <img class="logo me-3" src="/logo.svg" alt="Logo" />
     <div>
-        {#if !isTunnelStatusLoading}
-            <span>
+        <span>
+            {#if !isTunnelStatusLoading}
                 <svg
                     width="8"
                     height="8"
@@ -40,13 +38,20 @@
                 >
                     {tunnelStatusString}
                 </small>
-            </span>
-        {:else}
-            <span><small>&nbsp;</small></span>
-        {/if}
+            {:else}
+                <small class="secondary-text">&nbsp;Loading status…</small>
+            {/if}
+        </span>
 
         <h3>Cloudflare Tunnel</h3>
-        <span id="connector-version">{connecorVersion || "Loading data…"}</span>
+
+        <span>
+            {#if isTunnelHealthy && connecorVersion != null}
+                {connecorVersion}
+            {:else}
+                &nbsp;…
+            {/if}
+        </span>
     </div>
 </div>
 
@@ -69,7 +74,7 @@
         margin-bottom: 0.375rem;
     }
 
-    #connector-version {
+    .secondary-text {
         color: var(--secondary-text-color);
     }
 
