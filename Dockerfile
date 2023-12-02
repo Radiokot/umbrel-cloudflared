@@ -1,5 +1,5 @@
 # use LTS Node image to use as a builder
-FROM node:lts-slim AS builder
+FROM node:18.18-buster-slim AS builder
 
 # work under the /app directory
 WORKDIR /app
