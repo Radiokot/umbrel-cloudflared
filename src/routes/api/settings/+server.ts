@@ -34,16 +34,17 @@ async function getTokenFromFile(): Promise<string | null> {
     let tokenFileHandle
     try {
         try {
-            await fsPromises.access(env.CLOUDFLARED_TOKEN_FILE, fsConstants.R_OK)
-        } catch {
+            await fsPromises.access(env.CLOUDFLARED_TOKEN_FILE!, fsConstants.R_OK)
+        } catch(err) {
             console.warn('settings.getTokenFromFile: file_not_accessible:', {
+                message: (err as Error).message,
                 file: env.CLOUDFLARED_TOKEN_FILE
             })
 
             return null
         }
 
-        tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE, 'r')
+        tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE!, 'r')
         return (await tokenFileHandle.readFile(TOKEN_FILE_ENCODING)).trim()
     } finally {
         if (tokenFileHandle !== undefined) {
@@ -58,7 +59,7 @@ async function getTokenFromFile(): Promise<string | null> {
 async function saveTokenToFile(token: string) {
     let tokenFileHandle
     try {
-        tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE, 'w')
+        tokenFileHandle = await fsPromises.open(env.CLOUDFLARED_TOKEN_FILE!, 'w')
         await tokenFileHandle.writeFile(token, {
             encoding: TOKEN_FILE_ENCODING,
             flag: 'w'
