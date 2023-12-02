@@ -4,7 +4,7 @@ import {
     promises as fsPromises
 } from 'fs';
 
-import TunnelSettings from '../../../model/TunnelSettings';
+import TunnelSettings from '$lib/model/TunnelSettings';
 import { env } from '$env/dynamic/private';
 
 const TOKEN_FILE_ENCODING = 'utf8'

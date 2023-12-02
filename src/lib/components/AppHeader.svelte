@@ -1,5 +1,5 @@
 <script>
-    import tunnelStatus from "../stores/tunnel-status";
+    import tunnelStatus from "$lib/stores/tunnel-status";
 
     $: isTunnelStatusLoading = $tunnelStatus == null;
     $: tunnelStatusString = $tunnelStatus?.isUnreachable()

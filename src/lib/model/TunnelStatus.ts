@@ -1,4 +1,4 @@
-import type TunnelRoute from './TunnelRoute'
+import type TunnelRoute from '$lib/model/TunnelRoute'
 
 export default class TunnelStatus {
     status: string

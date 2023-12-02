@@ -1,7 +1,7 @@
 <script lang="ts">
-    import AppHeader from "../components/AppHeader.svelte";
-    import TunnelRoute from "../components/TunnelRoute.svelte";
-    import tunnelStatus from "../stores/tunnel-status";
+    import AppHeader from "$lib/components/AppHeader.svelte";
+    import TunnelRoute from "$lib/components/TunnelRoute.svelte";
+    import tunnelStatus from "$lib/stores/tunnel-status";
     import { PUBLIC_GUIDE_URL } from "$env/static/public";
 
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;

@@ -1,7 +1,7 @@
 import { readable } from "svelte/store";
 import { browser } from '$app/environment';
 
-import TunnelStatus from "../model/TunnelStatus";
+import TunnelStatus from "$lib/model/TunnelStatus";
 
 export let setTunnelStatusRestarting: (() => void) | null = null
 

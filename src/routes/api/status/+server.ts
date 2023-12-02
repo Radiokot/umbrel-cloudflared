@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
-import TunnelStatus from '../../../model/TunnelStatus';
-import TunnelRoute from '../../../model/TunnelRoute';
+import TunnelStatus from '$lib/model/TunnelStatus';
+import TunnelRoute from '$lib/model/TunnelRoute';
 
 import { env } from '$env/dynamic/private';
 

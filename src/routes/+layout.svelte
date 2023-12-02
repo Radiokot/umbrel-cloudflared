@@ -1,5 +1,5 @@
 <script>
-    import "$lib/bootstrap-grid.min.css";
+    import "$lib/vendor/bootstrap/bootstrap-grid.min.css";
 </script>
 
 <div id="content" class="mx-auto px-2 pt-2 pt-md-4 pb-4">

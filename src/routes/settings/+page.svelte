@@ -1,7 +1,7 @@
 <script lang="ts">
     import { PUBLIC_GUIDE_URL } from "$env/static/public";
-    import TunnelSettings from "../../model/TunnelSettings";
-    import { setTunnelStatusRestarting } from "../../stores/tunnel-status";
+    import TunnelSettings from "$lib/model/TunnelSettings";
+    import { setTunnelStatusRestarting } from "$lib/stores/tunnel-status";
 
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
 
