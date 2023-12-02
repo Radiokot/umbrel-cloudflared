@@ -23,7 +23,7 @@
 </header>
 
 {#if isTunnelHealthy && tunnelRoutes != null && tunnelRoutes.length == 0}
-    <center><p>No active routes</p></center>
+    <center><br><br><p>No active routes</p></center>
 {:else if tunnelRoutes != null && tunnelRoutes.length > 0}
     <div class="card p-3 p-md-4">
         <p class="label">Routes</p>

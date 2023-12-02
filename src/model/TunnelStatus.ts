@@ -5,7 +5,7 @@ export default class TunnelStatus {
     version: string
     routes: TunnelRoute[]
 
-    constructor(status: string, version = "unknown", routes: import('./TunnelRoute').default[] = []) {
+    constructor(status: string, version = "unknown", routes: TunnelRoute[] = []) {
         this.status = status
         this.version = version
         this.routes = routes

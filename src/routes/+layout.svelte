@@ -4,6 +4,25 @@
 
 <div id="content" class="mx-auto px-2 pt-2 pt-md-4 pb-4">
     <slot />
+    <br />
+    <br />
+    <br />
+    <center>
+        <small>
+            <img
+                src="/umbrel-logo.svg"
+                alt="Umbrel"
+                style="width: 1.25em; display: inline-block;  vertical-align: baseline;"
+            />
+            Cloudflare Tunnel app by
+            <a
+                href="https://github.com/Radiokot/umbrel-cloudflared"
+                target="_blank"
+            >
+                Radiokot
+            </a>
+        </small>
+    </center>
 </div>
 
 <style>
