@@ -3,20 +3,28 @@ Access your [Umbrel](https://umbrel.com/) apps from the Internet using Cloudflar
 
 ![Screenshot](repository-assets/screen-1.png)
 
-Get it from:
+Get the app from:
 - Umbrel app store – comming soon
 - [Radiokot's Umbrel apps](https://github.com/Radiokot/umbrel-app-store)
 
 ## How to use it
 
-To use this app, you must have a set up Cloudflare account with added domains. Check out [the guide with examples](https://github.com/Radiokot/umbrel-cloudflared/wiki/How-to-set-up-Cloudflare-Tunnel-on-your-Umbrel) to configure your own tunnel.
+To use this app, you must have a set up Cloudflare account with added domains. Once you've done setting it up, check out [the guide with examples](https://github.com/Radiokot/umbrel-cloudflared/wiki/How-to-set-up-Cloudflare-Tunnel-on-your-Umbrel) to configure your own tunnel.
 
 ## Sponsorship
 I am very grateful to everyone [supporting this project](https://radiokot.com.ua/tip) ♥ To join the public sponsors list, email me the transaction reference once it is complete.
 
-## Environment variables
+## Development notes
+This web UI for [cloudflared](https://github.com/cloudflare/cloudflared) is intended to be used only in docker-compose deployment under Umbrel. The connector image it uses is [umbrel-cloudflared-connector](https://github.com/Radiokot/umbrel-cloudflared-connector).
+
+### Versioning
+This app uses [Semantic Versioning 2.0.0](https://semver.org/#spec-item-11). Hence it is closely connected to [cloudflared](https://github.com/cloudflare/cloudflared), the corresponding version is specified in the build metadata part, after the "+" sign.
+
+All the user-facing changes in the app are listed in the [changelog file](CHANGELOG.md).
+
+### Environment variables
 |Name|Meaning|
 |-|-|
-|`CLOUDFLARED_HOSTNAME`|Hostname or IP of the `cloudflared` container|
-|`CLOUDFLARED_METRICS_PORT`|`cloudflared` metrics server port on the corresponding container|
-|`CLOUDFLARED_TOKEN_FILE`|Path to a file to store the connector token|
+|`CLOUDFLARED_HOSTNAME`|Hostname or IP of the connector container|
+|`CLOUDFLARED_METRICS_PORT`|`cloudflared` metrics server port in the connector container. The corresponding value must be set for connector|
+|`CLOUDFLARED_TOKEN_FILE`|Path to a file to store the connector token. The corresponding value must be set for the connector|
