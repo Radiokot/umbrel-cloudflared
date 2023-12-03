@@ -1,5 +1,5 @@
-# use LTS Node image to use as a builder
-FROM node:18.18-buster-slim AS builder
+# use Node 18 image as a builder
+FROM node:18-alpine AS builder
 
 # work under the /app directory
 WORKDIR /app
@@ -7,14 +7,19 @@ WORKDIR /app
 # copy files required to install dependencies first
 COPY package.json package-lock.json svelte.config.js ./
 
-# install the dependencies for production
-RUN npm i -p
+# install the dependencies, including dev ones.
+# SvelteKit package itself is a dev dependency and we need it for building the app.
+RUN npm ci
 
 # copy all the sources
 COPY . .
 
 # build the app
 RUN npm run build
+
+# delete all the dev dependencies from the "node_modules",
+# they are no longer needed.
+RUN npm prune --production
 
 # take the distroless Node 18 image
 FROM gcr.io/distroless/nodejs18-debian11
