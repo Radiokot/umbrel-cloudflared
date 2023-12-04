@@ -1,6 +1,6 @@
 {
 	"name": "umbrel-cloudflared",
-	"version": "1.0.0+cf.2023.10.0",
+	"version": "1.0.1+cf.2023.10.0",
 	"private": true,
 	"scripts": {
 		"prepare": "svelte-kit sync",
