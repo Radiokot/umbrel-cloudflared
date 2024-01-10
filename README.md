@@ -4,7 +4,7 @@ Access your [Umbrel](https://umbrel.com/) apps from the Internet using Cloudflar
 ![Screenshot](repository-assets/screen-1.png)
 
 Get the app from:
-- Umbrel app store – comming soon
+- [Umbrel app store](https://apps.umbrel.com/app/cloudflared)
 - [Radiokot's Umbrel apps](https://github.com/Radiokot/umbrel-app-store)
 
 ## How to use it
