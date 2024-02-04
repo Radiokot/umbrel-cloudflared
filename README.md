@@ -11,8 +11,12 @@ Get the app from:
 
 To use this app, you must have a set up Cloudflare account with added domains. Once you've done setting it up, check out [the guide with examples](https://github.com/Radiokot/umbrel-cloudflared/wiki/How-to-set-up-Cloudflare-Tunnel-on-your-Umbrel) to configure your own tunnel.
 
-## Sponsorship
-I am very grateful to everyone [supporting this project](https://radiokot.com.ua/tip) ♥ To join the public sponsors list, email me the transaction reference once it is complete.
+## Sponsors
+[<img src="https://avatars.githubusercontent.com/u/103765434?s=100" alt="BrutusBondBTC" height=70 />](https://github.com/BrutusBondBTC)
+<br>
+…and 1 anonymous sponsor.
+
+*I am very grateful to everyone [supporting this project](https://radiokot.com.ua/tip) ❤️ To join this public list, email me the transaction reference once it is complete.*
 
 ## Development notes
 This web UI for [cloudflared](https://github.com/cloudflare/cloudflared) is intended to be used only in docker-compose deployment under Umbrel. The connector image it uses is [umbrel-cloudflared-connector](https://github.com/Radiokot/umbrel-cloudflared-connector).
