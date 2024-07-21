@@ -22,8 +22,7 @@ To use this app, you must have a set up Cloudflare account with added domains. O
 This web UI for [cloudflared](https://github.com/cloudflare/cloudflared) is intended to be used only in docker-compose deployment under Umbrel. The connector image it uses is [umbrel-cloudflared-connector](https://github.com/Radiokot/umbrel-cloudflared-connector).
 
 ### Versioning
-This app uses [Semantic Versioning 2.0.0](https://semver.org/#spec-item-11). Hence it is closely connected to [cloudflared](https://github.com/cloudflare/cloudflared), the corresponding version is specified in the build metadata part, after the "+" sign.
-
+This app uses [Semantic Versioning 2.0.0](https://semver.org/#spec-item-11).
 All the user-facing changes in the app are listed in the [changelog file](CHANGELOG.md).
 
 ### Environment variables
