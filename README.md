@@ -14,7 +14,7 @@ To use this app, you must have a set up Cloudflare account with added domains. O
 ## Sponsors
 [<img src="https://avatars.githubusercontent.com/u/103765434?s=100" alt="BrutusBondBTC" height=70 />](https://github.com/BrutusBondBTC)
 <br>
-…and 1 anonymous sponsor.
+…and 2 anonymous sponsors.
 
 *I am very grateful to everyone [supporting this project](https://radiokot.com.ua/tip) ❤️ To join this public list, email me the transaction reference once it is complete.*
 
