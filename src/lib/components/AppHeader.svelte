@@ -3,101 +3,72 @@
 
     $: isTunnelStatusLoading = $tunnelStatus == null;
     $: tunnelStatusString = $tunnelStatus?.isUnreachable()
-        ? "Unreacahable"
+        ? "Unreachable"
         : $tunnelStatus?.isOk()
           ? "Running"
           : $tunnelStatus?.isRestarting()
             ? "Restarting"
             : $tunnelStatus?.status;
     $: isTunnelHealthy = $tunnelStatus?.isOk() == true;
-    $: connecorVersion = $tunnelStatus?.version;
+    $: isTunnelRestarting = $tunnelStatus?.isRestarting() == true;
+    $: isTunnelUnreachable = $tunnelStatus?.isUnreachable() == true;
+    $: connectorVersion = $tunnelStatus?.version;
 </script>
 
-<div class="d-flex">
-    <img class="logo me-3" src="/logo.svg" alt="Logo" />
-    <div>
-        <span>
+<div class="app-identity">
+    <img class="logo" src="/logo.svg" alt="Cloudflare Tunnel" />
+    <div class="app-details">
+        <div class="app-meta">
             {#if !isTunnelStatusLoading}
-                <svg
-                    width="8"
-                    height="8"
-                    viewBox="0 0 8 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle
-                        class:status-ok={isTunnelHealthy}
-                        class:status-warning={!isTunnelHealthy}
-                        cx="4"
-                        cy="4"
-                        r="4"
-                        fill="#000000"
-                    />
-                </svg>
-                <small
+                <span
+                    class="status-badge"
                     class:status-ok={isTunnelHealthy}
-                    class:status-warning={!isTunnelHealthy}
+                    class:status-warning={isTunnelRestarting}
+                    class:status-error={isTunnelUnreachable}
+                    aria-live="polite"
                 >
+                    <span class="status-dot"></span>
                     {tunnelStatusString}
-                </small>
+                </span>
             {:else}
-                <small class="secondary-text">&nbsp;Loading status…</small>
+                <span class="status-badge status-loading" aria-live="polite">
+                    <span class="status-dot"></span>
+                    Loading status
+                </span>
             {/if}
-        </span>
 
-        <h3>Cloudflare Tunnel</h3>
-
-        <span class="secondary-text">
-            {#if isTunnelHealthy && connecorVersion != null}
-                {connecorVersion}
-            {:else}
-                &nbsp;…
+            {#if connectorVersion != null && connectorVersion !== "unknown"}
+                <span class="version">v{connectorVersion}</span>
             {/if}
-        </span>
+        </div>
+
+        <h1>Cloudflare Tunnel</h1>
+        <p>Secure access to your Umbrel apps</p>
     </div>
 </div>
 
 <style>
-    :root {
-        --status-ok-color: #00cd98;
-        --status-warning-color: #f6b900;
-    }
+    .app-identity { display:flex; align-items:center; gap:18px; min-width:0; }
+    .logo { width:70px; height:70px; flex:0 0 auto; border:0.5px solid rgba(255,255,255,.2); border-radius:19px; box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 12px 30px rgba(0,0,0,.22); }
+    .app-details { min-width:0; }
+    .app-meta { display:flex; align-items:center; gap:9px; min-height:22px; }
+    h1 { margin:5px 0 4px; font-size:1.55rem; line-height:1.08; letter-spacing:-.045em; }
+    p { margin:0; overflow:hidden; color:var(--secondary-text-color); font-size:.78rem; line-height:1.3; text-overflow:ellipsis; white-space:nowrap; }
+    .status-badge { display:inline-flex; align-items:center; gap:6px; min-height:22px; padding:0 9px; border:0.5px solid currentColor; border-radius:999px; background:rgba(255,255,255,.045); color:var(--secondary-text-color); font-size:.68rem; font-weight:600; letter-spacing:-.01em; }
+    .status-dot { width:6px; height:6px; border-radius:50%; background:currentColor; box-shadow:0 0 9px currentColor; }
+    .status-ok { color:var(--success-color); }
+    .status-warning { color:var(--warning-color); }
+    .status-error { color:var(--danger-color); }
+    .status-loading .status-dot { animation:pulse 1.4s ease-in-out infinite; }
+    .version { color:var(--tertiary-text-color); font-size:.69rem; font-weight:500; }
 
-    .logo {
-        width: 120px;
-        height: 120px;
-        border-radius: 22%;
-        border: 1px solid #e1e6ea;
-    }
-
-    h3 {
-        font-size: 2rem;
-        margin-top: 0;
-        margin-bottom: 0.375rem;
-    }
-
-    .secondary-text {
-        color: var(--secondary-text-color);
-    }
-
-    .status-ok {
-        color: var(--status-ok-color);
-        fill: var(--status-ok-color);
-    }
-
-    .status-warning {
-        color: var(--status-warning-color);
-        fill: var(--status-warning-color);
-    }
+    @keyframes pulse { 50% { opacity:.3; transform:scale(.75); } }
 
     @media (max-width: 30em) {
-        .logo {
-            width: 80px;
-            height: 80px;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
+        .app-identity { gap:13px; }
+        .logo { width:56px; height:56px; border-radius:15px; }
+        h1 { margin-top:3px; font-size:1.22rem; }
+        p { display:none; }
+        .status-badge { min-height:20px; padding:0 7px; font-size:.63rem; }
     }
 </style>

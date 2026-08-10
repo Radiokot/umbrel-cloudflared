@@ -44,3 +44,36 @@ All the user-facing changes in the app are listed in the [changelog file](CHANGE
 |`CLOUDFLARED_HOSTNAME`|Hostname or IP of the connector container|
 |`CLOUDFLARED_METRICS_PORT`|`cloudflared` metrics server port in the connector container. The corresponding value must be set for connector|
 |`CLOUDFLARED_TOKEN_FILE`|Path to a file to store the connector token. The corresponding value must be set for the connector|
+
+### UmbrelOS widgets
+
+The app exposes two read-only widget endpoints: `/api/widgets/status` and
+`/api/widgets/routes`. Register them in the Cloudflared app manifest in the
+[Umbrel App Store](https://github.com/getumbrel/umbrel-apps/blob/master/cloudflared/umbrel-app.yml):
+
+```yaml
+widgets:
+  - id: status
+    type: three-stats
+    refresh: 15000
+    endpoint: web:3000/api/widgets/status
+    example:
+      items:
+        - icon: circle-check
+          subtext: Status
+          text: Ok
+        - icon: route
+          subtext: Routes
+          text: "2"
+        - icon: versions
+          subtext: Version
+          text: 2026.6.1
+  - id: routes
+    type: list
+    refresh: 15000
+    endpoint: web:3000/api/widgets/routes
+    example:
+      items:
+        - text: app.example.com
+          subtext: http://app:3000
+```
