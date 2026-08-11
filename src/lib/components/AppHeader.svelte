@@ -3,7 +3,7 @@
 
     $: isTunnelStatusLoading = $tunnelStatus == null;
     $: tunnelStatusString = $tunnelStatus?.isUnreachable()
-        ? "Unreacahable"
+        ? "Unreachable"
         : $tunnelStatus?.isOk()
           ? "Running"
           : $tunnelStatus?.isRestarting()
