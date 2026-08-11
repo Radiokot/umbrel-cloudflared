@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        PUBLIC_GUIDE_URL: ${PUBLIC_GUIDE_URL:-https://github.com/Radiokot/umbrel-cloudflared/wiki/How-to-set-up-Cloudflare-Tunnel-on-your-Umbrel}
+    container_name: umbrel-cloudflared-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      CLOUDFLARED_HOSTNAME: connector
+      CLOUDFLARED_METRICS_PORT: 49312
+      CLOUDFLARED_TOKEN_FILE: /shared/cloudflared-token
+    volumes:
+      - cloudflared-token:/shared
+    depends_on:
+      - connector
+
+  connector:
+    image: ghcr.io/radiokot/umbrel-cloudflared-connector:latest
+    container_name: umbrel-cloudflared-connector
+    restart: unless-stopped
+    environment:
+      CLOUDFLARED_METRICS_PORT: 49312
+      CLOUDFLARED_CONTROL_PORT: 8018
+      CLOUDFLARED_TOKEN_FILE: /shared/cloudflared-token
+    volumes:
+      - cloudflared-token:/shared
+    ports:
+      - "49312:49312"
+      - "8018:8018"
+
+volumes:
+  cloudflared-token:
