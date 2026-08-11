@@ -50,7 +50,7 @@
                 1. <a href="/settings">Configure the app</a> with the start command
                 of your Cloudflare tunnel
             </p>
-            <p>2. Create routes to access your Umbrel apps from the Internet</p>
+            <p>2. In the Cloudflare dashboard, create routes to access your Umbrel apps from the Internet</p>
             <br />
             <div class="d-block d-sm-flex">
                 <!-- d-block d-sm-flex makes the button full width only on xs-->
@@ -59,7 +59,7 @@
                     target="_blank"
                     href={PUBLIC_GUIDE_URL}
                 >
-                    Learn more
+                    Read the guide
                 </a>
             </div>
         </div>
