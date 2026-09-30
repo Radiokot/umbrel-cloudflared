@@ -21,6 +21,19 @@ To use this app, you must have a set up Cloudflare account with added domains. O
 ## Development notes
 This web UI for [cloudflared](https://github.com/cloudflare/cloudflared) is intended to be used only in docker-compose deployment under Umbrel. The connector image it uses is [umbrel-cloudflared-connector](https://github.com/Radiokot/umbrel-cloudflared-connector).
 
+### Local compose
+For local development, this repository includes a real connector wrapper around the official `cloudflare/cloudflared` binary.
+It exposes the control endpoint expected by the UI and uses the token from the shared volume.
+
+```bash
+docker compose up --build
+```
+
+- UI: `http://localhost:3000`
+- connector control endpoint: `http://localhost:8018/cfd-restart`
+- connector metrics: `http://localhost:49312/metrics`
+- saved token file: `/shared/cloudflared-token` inside the compose volume
+
 ### Versioning
 This app uses [Semantic Versioning 2.0.0](https://semver.org/#spec-item-11).
 All the user-facing changes in the app are listed in the [changelog file](CHANGELOG.md).

@@ -4,6 +4,10 @@ FROM node:18-alpine AS builder
 # work under the /app directory
 WORKDIR /app
 
+# build-time public env for SvelteKit static imports
+ARG PUBLIC_GUIDE_URL
+ENV PUBLIC_GUIDE_URL=${PUBLIC_GUIDE_URL}
+
 # copy files required to install dependencies first
 COPY package.json package-lock.json svelte.config.js ./
 
@@ -41,4 +45,3 @@ ENV NODE_ENV=production
 
 # run the app server (entrypoint is node)
 CMD ["server"]
-
