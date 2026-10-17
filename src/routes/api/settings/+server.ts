@@ -11,16 +11,23 @@ const CLOUDFLARED_CONTROL_URL =
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
     const token = await getValueFromFile(env.CLOUDFLARED_TOKEN_FILE!);
-    return json(new TunnelSettings(token));
+    const extraArgs = await getValueFromFile(env.CLOUDFLARED_EXTRA_ARGS_FILE!);
+    return json(new TunnelSettings(token, extraArgs));
 }
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-    const { token } = await request.json();
+    const { token, extraArgs } = await request.json();
     if (token && typeof token == "string") {
         await saveValueToFile(token, env.CLOUDFLARED_TOKEN_FILE!);
     } else {
         throw error(400, '"token" is required and must be a string');
+    }
+
+    if (extraArgs && typeof extraArgs == "string") {
+        await saveValueToFile(extraArgs, env.CLOUDFLARED_EXTRA_ARGS_FILE!);
+    } else {
+        await saveValueToFile("", env.CLOUDFLARED_EXTRA_ARGS_FILE!);
     }
 
     await restartConnector();
@@ -57,10 +64,7 @@ async function getValueFromFile(file: string): Promise<string | null> {
 async function saveValueToFile(value: string, file: string) {
     let fileHandle;
     try {
-        fileHandle = await fsPromises.open(
-            file,
-            "w",
-        );
+        fileHandle = await fsPromises.open(file, "w");
         await fileHandle.writeFile(value, {
             encoding: VALUE_FILE_ENCODING,
             flag: "w",

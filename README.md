@@ -31,3 +31,4 @@ All the user-facing changes in the app are listed in the [changelog file](CHANGE
 |`CLOUDFLARED_HOSTNAME`|Hostname or IP of the connector container|
 |`CLOUDFLARED_METRICS_PORT`|`cloudflared` metrics server port in the connector container. The corresponding value must be set for connector|
 |`CLOUDFLARED_TOKEN_FILE`|Path to a file to store the connector token. The corresponding value must be set for the connector|
+|`CLOUDFLARED_EXTRA_ARGS_FILE`|Path to a file to store the optional extra connector arguments. The corresponding value must be set for the connector|

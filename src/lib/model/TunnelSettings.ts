@@ -5,13 +5,22 @@ export default class TunnelSettings {
     token: string | null;
 
     /**
-     * @param token Cloudflare connector token 
+     * Optional extra arguments for the connector
      */
-    constructor(token: string | null) {
-        this.token = token
+    extraArgs: string | null;
+
+    /**
+     * @param token Cloudflare connector token
+     */
+    constructor(token: string | null, extraArgs: string | null) {
+        this.token = token;
+        this.extraArgs = extraArgs;
     }
 
     static from(json: any): TunnelSettings {
-        return new TunnelSettings(json.token ? "" + json.token : null);
+        return new TunnelSettings(
+            json.token ? "" + json.token : null,
+            json.extraArgs ? "" + json.extraArgs : null,
+        );
     }
 }

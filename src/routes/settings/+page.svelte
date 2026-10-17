@@ -1,11 +1,15 @@
 <script lang="ts">
-    import { PUBLIC_GUIDE_URL } from "$env/static/public";
+    import {
+        PUBLIC_GUIDE_URL,
+        PUBLIC_CLOUDFLARED_ARGUMENTS_GUIDE_URL,
+    } from "$env/static/public";
     import TunnelSettings from "$lib/model/TunnelSettings";
     import { setTunnelStatusRestarting } from "$lib/stores/tunnel-status";
 
     const tokenRegex = /[A-Za-z0-9+/]+={0,2}$/g;
 
     let tokenInput = "";
+    let extraArgsInput = "";
     let isSavingSettings = false;
     $: parsedToken = parseToken(tokenInput);
     $: isSaveEnabled = parsedToken != null && !isSavingSettings;
@@ -85,10 +89,13 @@
         if (tunnelSettings.token != null) {
             tokenInput = tunnelSettings.token;
         }
+        if (tunnelSettings.extraArgs != null) {
+            extraArgsInput = tunnelSettings.extraArgs;
+        }
     }
 
     async function saveTunnelSettings() {
-        let tunnelSettings = new TunnelSettings(parsedToken);
+        let tunnelSettings = new TunnelSettings(parsedToken, extraArgsInput);
         let response = await fetch("/api/settings", {
             method: "POST",
             body: JSON.stringify(tunnelSettings),
@@ -141,6 +148,36 @@
             />
         </div>
     </div>
+    <details>
+        <summary class="d-block">
+            <h4>Advanced</h4>
+        </summary>
+
+        <div class="row">
+            <p class="d-block col-12">
+                <label for="extraArgsInput">
+                    Extra cloudflared arguments
+                </label>
+                <span>&nbsp;</span>
+                <a
+                    href={PUBLIC_CLOUDFLARED_ARGUMENTS_GUIDE_URL}
+                    target="_blank"
+                >
+                    (?)
+                </a>
+            </p>
+
+            <div class="col-12 col-sm-9 col-md-7">
+                <textarea
+                    id="extraArgsInput"
+                    name="extraArgsInput"
+                    rows="5"
+                    placeholder="Extra arguments to be inserted between cloudflared 'tunnel' and 'run'"
+                    bind:value={extraArgsInput}
+                />
+            </div>
+        </div>
+    </details>
     <button
         class="button button-primary mt-3 col-12 col-sm-auto"
         disabled={!isSaveEnabled}
@@ -161,11 +198,21 @@
         margin: 0px;
     }
 
-    #tokenInput {
+    textarea {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         width: 100%;
+    }
+
+    summary h4::after {
+        content: "🔽";
+        padding-left: 0.5em;
+    }
+
+    details[open] summary h4::after {
+        content: "🔼";
+        padding-left: 0.5em;
     }
 
     @media (max-width: 30em) {
